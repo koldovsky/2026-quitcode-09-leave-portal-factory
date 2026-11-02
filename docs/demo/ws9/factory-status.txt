@@ -1,0 +1,22 @@
+run-20261102105024-f5b9f6  bulk-db  state=refused  (the target has no recent passing readiness check (factory doctor))
+  attempts 0/? · cost $0.0000
+run-20261102105106-84d80d  bulk-db  state=refused  (task not admissible)
+  - non-functional "security" is still undecided
+  - non-functional "accessRules" is still undecided
+  - non-functional "idempotency" is still undecided
+  - non-functional "tenancy" is still undecided
+  - non-functional "failureModes" is still undecided
+  attempts 0/? · cost $0.0000
+run-20261102105148-3f6cd9  bulk-db  state=released
+  attempts 1/3 · cost $0.3500 · class docs → auto
+  PASS       boundary         29 tool call(s) decided by the policy hook, 2 denied
+  PASS       integrity        287 protected file(s) unchanged
+  PASS       diff             7 file(s), 115 changed lines
+  PASS       maintainability  Maintainability passed: no findings in 5 checked files (max-file-lines, dependency, duplication).
+  PASS       visible-tests    102 visible test(s) passed
+  PASS       repeat           outcomes identical across 2 runs
+  PASS       holdouts         3/3 hidden scenario(s) passed
+  PASS       review           reviewer could not refute the change (0 non-blocking note(s), 0 unsupported finding(s) dropped)
+  n/a        mutation: no mutable operators on the changed lines
+  released to branch factory/run-20261102105148-3f6cd9 at 41ce8a63f8a3 · rollback target 6ffc15af2ed3 · not pushed
+review queue: 0 waiting, oldest 0 min

@@ -1,0 +1,18 @@
+$ node control/tools/ac-to-task.mjs --file <twin>/requirements/02-bulk-decisions.md --ac AC-BULK-01,AC-BULK-02,AC-BULK-03 --id bulk-db --holdout bulk-db --target <twin> --size small > control/tasks/bulk-db.json
+ac-to-task: pass-to-pass skips e2e-only ACs (not run by Vitest): AC-USERS-11
+exit 0
+$ factory approve config --as koldovsky --control control --target <twin> --store store
+approved factory configuration 93e98a6beb4147e104a5e117df44ccdeb74c12a65c200f1023e45057b3e8e740
+exit 0 · 102 мс
+$ factory approve intent bulk-db --as koldovsky --control control --target <twin> --store store
+approved intent of task bulk-db at 3c405261eca5e3c2a47a702c1c9c384ba6d5cf98bff07f5fcc9a0127c5e3af27
+exit 0 · 99 мс
+$ factory run bulk-db --as koldovsky --control control --target <twin> --store store
+run-20261102111352-b9fa64  bulk-db  state=refused  (task not admissible)
+  - non-functional "security" is still undecided
+  - non-functional "accessRules" is still undecided
+  - non-functional "idempotency" is still undecided
+  - non-functional "tenancy" is still undecided
+  - non-functional "failureModes" is still undecided
+  attempts 0/? · cost $0.0000
+exit 0 · 131 мс

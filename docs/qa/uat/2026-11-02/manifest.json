@@ -1,0 +1,219 @@
+{
+  "kind": "uat",
+  "generatedAt": "2026-11-02T11:10:54.479Z",
+  "baseURL": "https://quitcode-ws9-leave-portal-factory.vercel.app",
+  "deployedSha": "55c748e236d8ab79cc8c11f2d12bd0f1892c87ed",
+  "testsCommit": "55c748e236d8ab79cc8c11f2d12bd0f1892c87ed",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "disputes": "claude-sonnet-5-5"
+  },
+  "note": "Відео й траси не в git (test-results/ локально, артефакт CI). check-recordings конвеєра WS9 вимагає відео на диску — для нього цей manifest треба доповнити.",
+  "results": [
+    {
+      "id": "AC-BULK-01",
+      "proof": "AC-BULK-01",
+      "title": "AC-BULK-01: менеджер «Математики» позначає 2 з 3 записів і схвалює вибрані — обидва схвалено з автором і часом, третій на розгляді",
+      "screenshot": "docs/qa/uat/2026-11-02/frames/AC-BULK-01-then-1.png",
+      "video": "test-results/artifacts/manage-bulk-AC-BULK-01-мен-07912--і-часом-третій-на-розгляді-chromium/video.webm",
+      "trace": "test-results/artifacts/manage-bulk-AC-BULK-01-мен-07912--і-часом-третій-на-розгляді-chromium/trace.zip",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "На кадрі frame-then-1.png (/manage) у розділі «Вирішені» видно два записи з «схвалено» і часом 02.11.2026, 13:09:31 — 06.09.2027–07.09.2027 і 13.09.2027–14.09.2027. Запис 20.09.2027–21.09.2027 стоїть у розділі «На розгляді». Авторство рішення (decided_by) з кадру не видно, тому це не оцінювалося."
+      },
+      "agentModel": "claude-haiku-5-5",
+      "agentVerdicts": {
+        "claude-haiku-5-5": "PASS",
+        "claude-sonnet-5-5": null
+      },
+      "escalated": false,
+      "quotesVerified": [
+        {
+          "quote": "Вирішені",
+          "onPage": true
+        },
+        {
+          "quote": "UAT Працівник відпустка, 13.09.2027 – 14.09.2027 (днів: 2) основна посада, Математика",
+          "onPage": true
+        },
+        {
+          "quote": "схвалено",
+          "onPage": true
+        },
+        {
+          "quote": "02.11.2026, 13:09:31",
+          "onPage": true
+        },
+        {
+          "quote": "UAT Працівник відпустка, 06.09.2027 – 07.09.2027 (днів: 2) основна посада, Математика",
+          "onPage": true
+        },
+        {
+          "quote": "схвалено",
+          "onPage": true
+        },
+        {
+          "quote": "02.11.2026, 13:09:31",
+          "onPage": true
+        },
+        {
+          "quote": "На розгляді",
+          "onPage": true
+        },
+        {
+          "quote": "UAT Працівник відпустка, 20.09.2027 – 21.09.2027 (днів: 2) основна посада, Математика",
+          "onPage": true
+        }
+      ],
+      "verdict": "PASS",
+      "factoryGate": "PASS",
+      "rule": "R6: перевірки, агент і цитати збігаються",
+      "playwrightMs": 11576,
+      "reviewCostUsd": 0.00268,
+      "reviewWallMs": 11899
+    },
+    {
+      "id": "AC-BULK-02",
+      "proof": "AC-BULK-02",
+      "title": "AC-BULK-02: серед вибраних запис «Початкової школи» (підмінений запит) — жоден запис не змінено, повідомлення про записи не з черги",
+      "screenshot": "docs/qa/uat/2026-11-02/frames/AC-BULK-02-then-1.png",
+      "video": "test-results/artifacts/manage-bulk-AC-BULK-02-сер-a9cd9-лення-про-записи-не-з-черги-chromium/video.webm",
+      "trace": "test-results/artifacts/manage-bulk-AC-BULK-02-сер-a9cd9-лення-про-записи-не-з-черги-chromium/trace.zip",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "На кадрі frame-then-1.png (/manage, «Черга рішень») видно червоне повідомлення з точним текстом критерію, і в розділі «На розгляді» стоять обидва записи 11.10.2027 – 12.10.2027 та 04.10.2027 – 05.10.2027 без жодних ознак рішення. Запис «Початкової школи» на кадрі не видно: у «На розгляді» показано лише три записи «Математики» (третій — 20.09.2027 – 21.09.2027), а розділ «Вирішені» обрізаний унизу. Це не входить до видимих частин «Тоді», тому вердикт PASS, але стан цього запису з кадру не підтверджується."
+      },
+      "agentModel": "claude-haiku-5-5",
+      "agentVerdicts": {
+        "claude-haiku-5-5": "PASS",
+        "claude-sonnet-5-5": null
+      },
+      "escalated": false,
+      "quotesVerified": [
+        {
+          "quote": "Серед вибраних є записи не з вашої черги. Жодне рішення не збережено.",
+          "onPage": true
+        },
+        {
+          "quote": "На розгляді",
+          "onPage": true
+        },
+        {
+          "quote": "UAT Працівник відпустка, 11.10.2027 – 12.10.2027 (днів: 2) основна посада, Математика",
+          "onPage": true
+        },
+        {
+          "quote": "UAT Працівник відпустка, 04.10.2027 – 05.10.2027 (днів: 2) основна посада, Математика",
+          "onPage": true
+        }
+      ],
+      "verdict": "PASS",
+      "factoryGate": "PASS",
+      "rule": "R6: перевірки, агент і цитати збігаються",
+      "playwrightMs": 10395,
+      "reviewCostUsd": 0.00295,
+      "reviewWallMs": 15964
+    },
+    {
+      "id": "AC-BULK-03",
+      "proof": "AC-BULK-03",
+      "title": "AC-BULK-03: серед вибраних запис, який тим часом схвалено, — жоден запис не змінено, повідомлення про ухвалене рішення",
+      "screenshot": "docs/qa/uat/2026-11-02/frames/AC-BULK-03-then-1.png",
+      "video": "test-results/artifacts/manage-bulk-AC-BULK-03-сер-da658-млення-про-ухвалене-рішення-chromium/video-1.webm",
+      "trace": "test-results/artifacts/manage-bulk-AC-BULK-03-сер-da658-млення-про-ухвалене-рішення-chromium/trace.zip",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "На кадрі /manage (сторінка «Черга рішень») червоним написано саме те повідомлення, що вимагає критерій, посимвольно збіжне з ним. Під заголовком «На розгляді» видно обидва записи з критерію: 01.11.2027 – 02.11.2027 і 08.11.2027 – 09.11.2027. Частину про базу (автор, decided_by/decided_at) з кадрів не оцінено."
+      },
+      "agentModel": "claude-haiku-5-5",
+      "agentVerdicts": {
+        "claude-haiku-5-5": "PASS",
+        "claude-sonnet-5-5": null
+      },
+      "escalated": false,
+      "quotesVerified": [
+        {
+          "quote": "Серед вибраних є записи, щодо яких рішення вже ухвалено. Жодне рішення не збережено.",
+          "onPage": true
+        },
+        {
+          "quote": "На розгляді",
+          "onPage": true
+        },
+        {
+          "quote": "відпустка, 01.11.2027 – 02.11.2027 (днів: 2)",
+          "onPage": true
+        },
+        {
+          "quote": "відпустка, 08.11.2027 – 09.11.2027 (днів: 2)",
+          "onPage": true
+        }
+      ],
+      "verdict": "PASS",
+      "factoryGate": "PASS",
+      "rule": "R6: перевірки, агент і цитати збігаються",
+      "playwrightMs": 16014,
+      "reviewCostUsd": 0.00232,
+      "reviewWallMs": 9467
+    },
+    {
+      "id": "AC-BULK-04",
+      "proof": "AC-BULK-04",
+      "title": "AC-BULK-04: черга після «Схвалити вибрані» — 2 записи у «Вирішені» зі статусом «схвалено», третій «На розгляді», «Схвалено записів: 2»",
+      "screenshot": "docs/qa/uat/2026-11-02/frames/AC-BULK-04-then-1.png",
+      "video": "test-results/artifacts/manage-bulk-AC-BULK-04-чер-3d72b-гляді»-«Схвалено-записів-2»-chromium/video.webm",
+      "trace": "test-results/artifacts/manage-bulk-AC-BULK-04-чер-3d72b-гляді»-«Схвалено-записів-2»-chromium/trace.zip",
+      "asserted": true,
+      "vision": {
+        "met": false,
+        "readable": false,
+        "notes": "На кадрі є зелене повідомлення про схвалення і запис 20.12.2027 – 21.12.2027 у розділі «На розгляді». Розділ «Вирішені» не видно, а в «На розгляді» є ще кілька записів, тож результат за кадром підтвердити не можна."
+      },
+      "agentModel": "claude-sonnet-5-5",
+      "agentVerdicts": {
+        "claude-haiku-5-5": "NEEDS-HUMAN",
+        "claude-sonnet-5-5": "NEEDS-HUMAN"
+      },
+      "escalated": true,
+      "quotesVerified": [
+        {
+          "quote": "Схвалено записів: 2",
+          "onPage": true
+        },
+        {
+          "quote": "На розгляді",
+          "onPage": true
+        },
+        {
+          "quote": "відпустка, 20.12.2027 - 21.12.2027 (днів: 2)",
+          "onPage": false
+        }
+      ],
+      "verdict": "NEEDS-HUMAN",
+      "factoryGate": "NOT-EARNED",
+      "rule": "R3: перевірки пройшли, агент не погоджується — вирішує людина",
+      "playwrightMs": 10678,
+      "reviewCostUsd": 0.03868,
+      "reviewWallMs": 24361
+    }
+  ],
+  "negativeControls": [],
+  "cleanup": {
+    "at": "2026-11-02T11:10:19.552Z",
+    "deleted": [
+      "uat-261102110913-bulk01@example.test",
+      "uat-261102110913-bulk02m@example.test",
+      "uat-261102110913-bulk02p@example.test",
+      "uat-261102110913-bulk03@example.test",
+      "uat-261102110913-bulk04@example.test"
+    ],
+    "remaining": [],
+    "leftoverRequests": 0
+  }
+}
