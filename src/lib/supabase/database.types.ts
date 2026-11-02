@@ -194,6 +194,13 @@ export type Database = {
         };
         Returns: undefined;
       };
+      // 20261102120000_bulk_decisions.sql — масове схвалення записів черги.
+      approve_leave_records: {
+        Args: {
+          p_record_ids: string[];
+        };
+        Returns: number;
+      };
       submit_leave_request: {
         Args: {
           p_leave_type: string;

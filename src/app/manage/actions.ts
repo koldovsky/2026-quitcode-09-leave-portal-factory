@@ -7,6 +7,26 @@ import { decide, type Decision } from "@/lib/leave/decisions";
 import type { RecordStatus } from "@/lib/leave/types";
 import { requireRole } from "@/lib/supabase/viewer";
 
+/** AC-BULK-01…03: масове схвалення вибраних записів однією функцією бази (все або нічого). */
+export async function approveSelected(formData: FormData) {
+  const { supabase } = await requireRole("manager");
+  const ids = [...new Set(formData.getAll("record_ids").map(String).filter(Boolean))];
+  if (!ids.length) redirect("/manage?error=NOTHING_SELECTED");
+
+  const { data, error } = await supabase.rpc("approve_leave_records", { p_record_ids: ids });
+  if (error) {
+    const code = /NOT_IN_QUEUE/.test(error.message)
+      ? "NOT_IN_QUEUE_BULK"
+      : /NOT_PENDING/.test(error.message)
+        ? "NOT_PENDING_BULK"
+        : "DB_ERROR";
+    redirect(`/manage?error=${code}`);
+  }
+
+  revalidatePath("/manage");
+  redirect(`/manage?approved=${data ?? 0}`);
+}
+
 /** AC-LEAVE-06, AC-LEAVE-07: менеджер схвалює запис або повертає його на доопрацювання з коментарем. */
 export async function decideRecord(formData: FormData) {
   const { supabase, viewer } = await requireRole("manager");
