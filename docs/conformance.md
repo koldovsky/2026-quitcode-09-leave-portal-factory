@@ -21,7 +21,7 @@ PM додає рядки нових AC у PR зі зміною специфік�
 
 Версія специфікації: spec-v0.2
 
-Вимоги: https://github.com/koldovsky/2026-quitcode-07-leave-portal-spec · джерело: docs · знімок 2026-10-19
+Вимоги: https://github.com/koldovsky/2026-quitcode-07-leave-portal-spec · джерело: docs · знімок 2026-11-02
 
 | AC | Що перевіряє | Код | Тест | Статус |
 |---|---|---|---|---|
