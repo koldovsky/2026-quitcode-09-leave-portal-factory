@@ -39,7 +39,10 @@ export type LeaveErrorCode =
   | "UNKNOWN_POSITION"
   | "NOT_PENDING"
   | "NOT_NEEDS_REVISION"
-  | "NOT_IN_QUEUE";
+  | "NOT_IN_QUEUE"
+  | "NOT_IN_QUEUE_BULK" // AC-BULK-02
+  | "NOT_PENDING_BULK" // AC-BULK-03
+  | "NOTHING_SELECTED";
 
 export type Result<T> = { ok: true; value: T } | { ok: false; error: LeaveErrorCode };
 

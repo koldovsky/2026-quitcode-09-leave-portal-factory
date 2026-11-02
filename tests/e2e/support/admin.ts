@@ -158,3 +158,51 @@ export async function deleteUatUsers(onlyEmail?: string): Promise<CleanupResult>
   );
   return { deleted, remaining, leftoverRequests };
 }
+
+// ── WS9, масове рішення менеджера (AC-BULK-01…04): заявки синтетичних працівників і стан їхніх записів ──────────
+
+/**
+ * Синтетичний працівник сам подає заявку своєю сесією (публічний ключ + пароль) — функцією submit_leave_request,
+ * як сторінка /requests/new. Повертає id записів заявки (один запис — основна посада).
+ */
+export async function submitLeaveAs(email: string, password: string, start: string, end: string): Promise<string[]> {
+  if (!UAT_EMAIL.test(email)) throw new Error(`Лише синтетичні адреси uat-…@example.test: ${email}`);
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  if (!url || !key) throw new Error("Потрібні NEXT_PUBLIC_SUPABASE_URL і NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (.env.local)");
+  const client = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  const { error: signInError } = await client.auth.signInWithPassword({ email, password });
+  if (signInError) throw signInError;
+  const { data: positions, error: positionsError } = await client.from("positions").select("id");
+  if (positionsError) throw positionsError;
+  const { data: requestId, error } = await client.rpc("submit_leave_request", {
+    p_leave_type: "vacation",
+    p_start_date: start,
+    p_end_date: end,
+    p_position_ids: (positions ?? []).map((p) => p.id),
+  });
+  if (error) throw error;
+  const { data: records, error: recordsError } = await client.from("leave_records").select("id").eq("request_id", requestId);
+  if (recordsError) throw recordsError;
+  await client.auth.signOut();
+  return (records ?? []).map((r) => r.id);
+}
+
+export type RecordState = { id: string; status: string; decided_by: string | null; decided_at: string | null };
+
+/** Стан записів очима бази (секретний ключ, повз RLS) — те, чого не видно на екрані: автор і час рішення. */
+export async function recordStates(ids: string[]): Promise<RecordState[]> {
+  const { data, error } = await adminClient()
+    .from("leave_records")
+    .select("id, status, decided_by, decided_at")
+    .in("id", ids);
+  if (error) throw error;
+  return ids.map((id) => (data ?? []).find((r) => r.id === id) as RecordState);
+}
+
+/** id профілю за email (наприклад, демо-менеджера) — щоб перевірити автора рішення. */
+export async function profileIdByEmail(email: string): Promise<string> {
+  const { data, error } = await adminClient().from("profiles").select("id").eq("email", email).single();
+  if (error) throw error;
+  return data.id;
+}

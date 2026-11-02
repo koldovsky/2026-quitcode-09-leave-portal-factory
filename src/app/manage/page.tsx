@@ -8,13 +8,13 @@ import { LEAVE_TYPE_LABELS, POSITION_KIND_LABELS, STATUS_LABELS, errorMessage } 
 import type { LeaveType, PositionKind, RecordStatus } from "@/lib/leave/types";
 import { requireRole } from "@/lib/supabase/viewer";
 import { EmptyState, Field, Notice, PageShell, StatusBadge } from "../_components/ui";
-import { decideRecord } from "./actions";
+import { approveSelected, decideRecord } from "./actions";
 
 // AC-LEAVE-05, AC-LEAVE-09: менеджер бачить лише записи підрозділів, якими керує; адміністратор — усі.
 // Відбір робить RLS; фільтр за division_id лише прибирає власні записи менеджера, якщо вони колись будуть.
 export default async function ManagePage({ searchParams }: PageProps<"/manage">) {
   const { supabase, viewer } = await requireRole("manager", "admin");
-  const { error, done } = await searchParams;
+  const { error, done, approved } = await searchParams;
 
   let recordsQuery = supabase
     .from("leave_records")
@@ -71,6 +71,9 @@ export default async function ManagePage({ searchParams }: PageProps<"/manage">)
   return (
     <PageShell title={viewer.role === "manager" ? "Черга рішень" : "Усі заявки"} role={viewer.role}>
       {message ? <Notice kind="error">{message}</Notice> : null}
+      {typeof approved === "string" && /^\d+$/.test(approved) ? (
+        <Notice kind="success">Схвалено записів: {approved}</Notice>
+      ) : null}
       {typeof done === "string" && Object.hasOwn(STATUS_LABELS, done) ? (
         <Notice kind="success">Рішення збережено: {STATUS_LABELS[done as RecordStatus]}.</Notice>
       ) : null}
@@ -80,10 +83,22 @@ export default async function ManagePage({ searchParams }: PageProps<"/manage">)
           На розгляді
         </h2>
         {!pending.length ? <EmptyState>Нових заявок немає.</EmptyState> : null}
+        {viewer.role === "manager" && pending.length ? (
+          <form id="bulk-approve" action={approveSelected}>
+            <Button type="submit">Схвалити вибрані</Button>
+          </form>
+        ) : null}
         {pending.map((rec) => (
           <Card key={rec.id} data-testid="queue-record">
             <CardContent className="flex flex-col gap-3">
-              {describe(rec)}
+              {viewer.role === "manager" ? (
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" name="record_ids" value={rec.id} form="bulk-approve" aria-label="Вибрати" />
+                  {describe(rec)}
+                </label>
+              ) : (
+                describe(rec)
+              )}
               {rec.comment ? <p className="text-muted-foreground">Попередній коментар: «{rec.comment}»</p> : null}
               {canDecideRecord(viewer, { employeeId: "", divisionId: rec.division_id }) ? (
                 <div className="flex flex-wrap items-end gap-3">
