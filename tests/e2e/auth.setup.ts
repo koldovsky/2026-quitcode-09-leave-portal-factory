@@ -7,6 +7,8 @@ import { signIn } from "./support/uat";
 const ROLES = {
   admin: "admin@example.test",
   teacher: "teacher@example.test",
+  // WS9: масове рішення менеджера (tests/e2e/manage-bulk.spec.ts) — демо-менеджер «Математики».
+  manager: "manager.math@example.test",
 } as const;
 
 for (const [role, email] of Object.entries(ROLES)) {
