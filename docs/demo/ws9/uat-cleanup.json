@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-02T11:10:19.552Z",
+  "deleted": [
+    "uat-261102110913-bulk01@example.test",
+    "uat-261102110913-bulk02m@example.test",
+    "uat-261102110913-bulk02p@example.test",
+    "uat-261102110913-bulk03@example.test",
+    "uat-261102110913-bulk04@example.test"
+  ],
+  "remaining": [],
+  "leftoverRequests": 0
+}

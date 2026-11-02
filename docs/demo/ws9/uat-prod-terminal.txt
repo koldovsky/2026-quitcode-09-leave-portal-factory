@@ -1,0 +1,34 @@
+
+> 2026-quitcode-06-leave-portal-demo@0.1.0 uat
+> node scripts/uat/run.mjs --url https://quitcode-ws9-leave-portal-factory.vercel.app --grep AC-BULK
+
+UAT: https://quitcode-ws9-leave-portal-factory.vercel.app
+
+Running 8 tests using 1 worker
+
+  ok 1 [setup] › tests\e2e\auth.setup.ts:15:8 › вхід: admin (6.0s)
+  ok 2 [setup] › tests\e2e\auth.setup.ts:15:8 › вхід: teacher (1.6s)
+  ok 3 [setup] › tests\e2e\auth.setup.ts:15:8 › вхід: manager (1.7s)
+  ok 4 [chromium] › tests\e2e\manage-bulk.spec.ts:51:5 › AC-BULK-01: менеджер «Математики» позначає 2 з 3 записів і схвалює вибрані — обидва схвалено з автором і часом, третій на розгляді @uat @writes (11.6s)
+  ok 5 [chromium] › tests\e2e\manage-bulk.spec.ts:105:5 › AC-BULK-02: серед вибраних запис «Початкової школи» (підмінений запит) — жоден запис не змінено, повідомлення про записи не з черги @uat @writes (10.4s)
+  ok 6 [chromium] › tests\e2e\manage-bulk.spec.ts:161:5 › AC-BULK-03: серед вибраних запис, який тим часом схвалено, — жоден запис не змінено, повідомлення про ухвалене рішення @uat @writes (16.0s)
+  ok 7 [chromium] › tests\e2e\manage-bulk.spec.ts:214:5 › AC-BULK-04: черга після «Схвалити вибрані» — 2 записи у «Вирішені» зі статусом «схвалено», третій «На розгляді», «Схвалено записів: 2» @uat @writes (10.7s)
+  ok 8 [cleanup] › tests\e2e\cleanup.teardown.ts:9:11 › прибирання: синтетичні uat-*@example.test (327ms)
+
+  8 passed (1.1m)
+AC-BULK-01: passed, кадрів «Тоді»: 1
+AC-BULK-02: passed, кадрів «Тоді»: 1
+AC-BULK-03: passed, кадрів «Тоді»: 1
+AC-BULK-04: passed, кадрів «Тоді»: 1
+AC-BULK-03 [claude-haiku-5-5] → PASS; $0.00232112; 9467 мс
+AC-BULK-01 [claude-haiku-5-5] → PASS; $0.00268071; 11899 мс
+AC-BULK-02 [claude-haiku-5-5] → PASS; $0.00295383; 15964 мс
+AC-BULK-04 [claude-haiku-5-5] → NEEDS-HUMAN; $0.0024700599999999996; 12974 мс
+AC-BULK-04 [claude-sonnet-5-5] → NEEDS-HUMAN; $0.0362083; 11387 мс (суперечка → Sonnet)
+
+Звіт: docs/qa/uat/2026-11-02/report.md
+  AC-BULK-01: PASS — R6: перевірки, агент і цитати збігаються
+  AC-BULK-02: PASS — R6: перевірки, агент і цитати збігаються
+  AC-BULK-03: PASS — R6: перевірки, агент і цитати збігаються
+  AC-BULK-04: NEEDS-HUMAN — R3: перевірки пройшли, агент не погоджується — вирішує людина
+Є NEEDS-HUMAN: рішення — за PM (див. звіт).
